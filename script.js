@@ -30,7 +30,7 @@ function setRecognition() {
   recognition.onresult = function (event) {
     // processing results
     const { finalTranscript, interTranScript } = result(event.results);
-    textElement.innerHTML = finalTranscript + interTranScript;
+    textElement.innerHTML += finalTranscript + interTranScript;
   };
 }
 
