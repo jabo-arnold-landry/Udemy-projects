@@ -1,54 +1,41 @@
-const textElement = document.querySelector(".texts");
-let recognition = new webkitSpeechRecognition();
-const buttons = document.querySelector(".buttons");
+const pianoContainer = document.querySelector(".piano")
 
-buttons.addEventListener("click", (e) => {
-  if (e.target.id === "start-speech") {
-    startSpeech();
+class NoteKeys {
+  constructor(note, noteColor){
+    this.note = note;
+    this.noteColor = noteColor
   }
-  if (e.target.id === "end-speech") {
-    endSpeech();
+}
+
+function keyNotes(keyColor){
+  return function(note){
+    return new NoteKeys(note, keyColor)
   }
+}
+const blackNotes = keyNotes("key black")
+const whiteNotes = keyNotes("key white")
+const keys = [
+  whiteNotes("C"),
+  blackNotes("Db"),
+  whiteNotes("D"),
+  blackNotes("Eb"),
+  whiteNotes("E"),
+  whiteNotes("F"),
+  blackNotes("Gb"),
+  whiteNotes("G"),
+  blackNotes("Ab"),
+  whiteNotes("A"),
+  blackNotes("Bb"),
+  whiteNotes("B")
+]
+let docFragment = document.createDocumentFragment()
+let noteDiv = document.createElement()
+keys.forEach(element => {
+  const {note, noteColor} = element
+   noteDiv.innerHTML +=`
+                      <div data-note=${note} class=${noteColor}></div> <br>
+                      <audio id=${note}></audio>`
+
+docFragment.append(noteDiv)
 });
-function startSpeech() {
-  //alert("helo");
-  if ("webkitSpeechRecognition" in window) {
-    setRecognition();
-    recognition.start();
-  } else {
-    return alert("no recognition found");
-  }
-}
-function endSpeech() {
-  if (recognition) recognition.stop();
-  alert("recognition stoped");
-}
-function setRecognition() {
-  recognition.continous = true; //keeps listen for the speech continiously
-  recognition.interimResults = true; // keeps the listen to the speech
-  recognition.lang = "en-US"; // listening language
-  recognition.onresult = function (event) {
-    // processing results
-    const { finalTranscript, interTranScript } = result(event.results);
-    textElement.innerHTML += finalTranscript + interTranScript;
-  };
-}
-
-function result(results) {
-  let finalTranscript = "";
-  let interTranScript = "";
-  console.log(results);
-  for (let i = 0; i < results.length; i++) {
-    let transcript = results[i][0].transcript;
-    transcript.replace("\n", "<br>");
-    if (results[i].isFinal) {
-      finalTranscript += transcript;
-    } else {
-      transcript += interTranScript;
-    }
-    console.log(
-      `transcript:${transcript}, finaltranscript:${finalTranscript}, interTranScript:${interTranScript}`
-    );
-  }
-  return { finalTranscript, interTranScript };
-}
+pianoContainer.append(docFragment)
