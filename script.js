@@ -28,14 +28,21 @@ const keys = [
   blackNotes("Bb"),
   whiteNotes("B")
 ]
-let docFragment = document.createDocumentFragment()
-let noteDiv = document.createElement()
+let keyFragment = document.createDocumentFragment()
+let audioFragment = document.createDocumentFragment()
+function nodesCreation(element){
+  return function(attr, nameAttr){
+    element.setAttribute(attr, nameAttr)
+  }
+}
 keys.forEach(element => {
   const {note, noteColor} = element
-   noteDiv.innerHTML +=`
-                      <div data-note=${note} class=${noteColor}></div> <br>
-                      <audio id=${note}></audio>`
-
-docFragment.append(noteDiv)
+  let noteDiv = document.createElement("div")
+  let audioDiv = document.createElement("audio")
+   noteDiv.setAttribute("class", `${noteColor}`)
+   noteDiv.setAttribute("data-note", `${note}`)
+   audioDiv.setAttribute("id",`${note}`)
+keyFragment.append(noteDiv)
+audioFragment.append(audioDiv)
 });
-pianoContainer.append(docFragment)
+pianoContainer.append(keyFragment, audioFragment)
