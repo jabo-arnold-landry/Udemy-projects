@@ -29,3 +29,9 @@ body {
   background-color: white;
   border: 1px solid #333;
 }
+.white.active {
+  background-color: #ccc;
+}
+.black.active {
+  background-color: #333;
+}

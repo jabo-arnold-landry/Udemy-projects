@@ -48,3 +48,15 @@ keys.forEach((element) => {
 });
 pianoContainer.append(keyFragment);
 document.body.append(audioFragment);
+pianoContainer.addEventListener("click", (e) => {
+  if (e.target.classList.contains("key")) {
+    return playPiano(e.target);
+  }
+});
+function playPiano(key) {
+  const audioToPlay = document.getElementById(key.dataset.note);
+  audioToPlay.currentTime = 0;
+  audioToPlay.play();
+  key.classList.add("active");
+  audioToPlay.addEventListener("ended", () => key.classList.remove("active"));
+}
