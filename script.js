@@ -60,3 +60,15 @@ function playPiano(key) {
   key.classList.add("active");
   audioToPlay.addEventListener("ended", () => key.classList.remove("active"));
 }
+const WHITE_KEYS = ["z", "x", "c", "v", "b", "n", "m"];
+const BLACK_KEYS = ["s", "d", "e", "f", "j"];
+const whiteKeys = document.querySelectorAll(".white");
+const blackkeys = document.querySelectorAll(".black");
+
+document.addEventListener("keydown", (e) => {
+  if (e.repeat) return;
+  const pressedWhiteKey = WHITE_KEYS.indexOf(e.key.toLowerCase());
+  const pressedBlackKey = BLACK_KEYS.indexOf(e.key.toLowerCase());
+  if (pressedBlackKey > -1) playPiano(blackkeys[pressedBlackKey]);
+  if (pressedWhiteKey > -1) playPiano(whiteKeys[pressedWhiteKey]);
+});
