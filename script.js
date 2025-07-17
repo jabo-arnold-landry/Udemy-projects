@@ -1,19 +1,19 @@
-const pianoContainer = document.querySelector(".piano")
+const pianoContainer = document.querySelector(".piano");
 
 class NoteKeys {
-  constructor(note, noteColor){
+  constructor(note, noteColor) {
     this.note = note;
-    this.noteColor = noteColor
+    this.noteColor = noteColor;
   }
 }
 
-function keyNotes(keyColor){
-  return function(note){
-    return new NoteKeys(note, keyColor)
-  }
+function keyNotes(keyColor) {
+  return function (note) {
+    return new NoteKeys(note, keyColor);
+  };
 }
-const blackNotes = keyNotes("key black")
-const whiteNotes = keyNotes("key white")
+const blackNotes = keyNotes("key black");
+const whiteNotes = keyNotes("key white");
 const keys = [
   whiteNotes("C"),
   blackNotes("Db"),
@@ -26,23 +26,25 @@ const keys = [
   blackNotes("Ab"),
   whiteNotes("A"),
   blackNotes("Bb"),
-  whiteNotes("B")
-]
-let keyFragment = document.createDocumentFragment()
-let audioFragment = document.createDocumentFragment()
-function nodesCreation(element){
-  return function(attr, nameAttr){
-    element.setAttribute(attr, nameAttr)
-  }
+  whiteNotes("B"),
+];
+let keyFragment = document.createDocumentFragment();
+let audioFragment = document.createDocumentFragment();
+function nodesCreation(element) {
+  return function (attr, nameAttr) {
+    element.setAttribute(attr, nameAttr);
+  };
 }
-keys.forEach(element => {
-  const {note, noteColor} = element
-  let noteDiv = document.createElement("div")
-  let audioDiv = document.createElement("audio")
-   noteDiv.setAttribute("class", `${noteColor}`)
-   noteDiv.setAttribute("data-note", `${note}`)
-   audioDiv.setAttribute("id",`${note}`)
-keyFragment.append(noteDiv)
-audioFragment.append(audioDiv)
+keys.forEach((element) => {
+  const { note, noteColor } = element;
+  let noteDiv = document.createElement("div");
+  let audioDiv = document.createElement("audio");
+  noteDiv.setAttribute("class", `${noteColor}`);
+  noteDiv.setAttribute("data-note", `${note}`);
+  audioDiv.setAttribute("id", `${note}`);
+  audioDiv.setAttribute("src", `/notes/${note}.mp3`);
+  keyFragment.append(noteDiv);
+  audioFragment.append(audioDiv);
 });
-pianoContainer.append(keyFragment, audioFragment)
+pianoContainer.append(keyFragment);
+document.body.append(audioFragment);
