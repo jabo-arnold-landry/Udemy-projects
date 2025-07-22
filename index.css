@@ -1,0 +1,6 @@
+.example-1 :is(h3, h4, a) {
+  color: red;
+}
+a:is(:hover, :focus) {
+  color: black;
+}
