@@ -1,6 +1,6 @@
-.example-1 :is(h3, h4, a) {
-  color: red;
+.drag-active {
+  border: 2px dashed red;
 }
-a:is(:hover, :focus) {
-  color: black;
+.drag-inactive {
+  border: none;
 }
