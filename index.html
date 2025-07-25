@@ -19,12 +19,15 @@
         <button>next</button>
         <button title="toggle playlist">playlist</button>
       </div>
-      <div class="playlist">
-        <p>list is empty</p>
+      <div class="playlist drag-zone" draggable="true">
+        <p>drag and drop a file</p>
         <ul class="song-display"></ul>
-        <input type="file" id="songs" multiple /><br />
-        <button>+</button>
-        <p class="drag-zone" draggable="true">drag and drop media here!</p>
+
+        <div class="input-file">
+          <label for="songs">choose from local directory</label><br />
+          <input type="file" title="" id="songs" multiple accept="video/*" />
+        </div>
+        <!-- <p ></p>drag and drop media here!</p> -->
       </div>
     </section>
   </body>
