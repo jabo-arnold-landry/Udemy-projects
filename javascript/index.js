@@ -1,27 +1,27 @@
 const playList = document.querySelector(".playlist");
-const uploadButton = playList.querySelector("button");
+
 const songsList = playList.querySelector(".song-display");
-export const songsPlayLists = [];
-uploadButton.addEventListener("click", () => {
-  const fileInput = playList.querySelector("input");
-  //songsPlayLists.push(fileInput.files);
+export let songsPlayLists = [];
+const fileInput = playList.querySelector("input");
+fileInput.addEventListener("input", () => {
   handlingFiles(fileInput.files);
 });
-
 function handlingFiles(files) {
-  for (let key of files) {
-    songsPlayLists.push(key.name);
+  for (let file of files) {
+    songsPlayLists.push(file);
   }
   displaySongs(songsPlayLists);
+  songsPlayLists = [];
 }
 const docFrag = document.createDocumentFragment();
 function displaySongs(arr) {
   const audioLists = document.querySelector(".audio");
   arr.forEach((audio) => {
     const audioElement = document.createElement("audio");
-    audioElement.src = audio;
+    const url = URL.createObjectURL(audio);
+    audioElement.src = url;
     docFrag.append(audioElement);
-    displaySongsTitle(audio);
+    displaySongsTitle(audio.name);
   });
   audioLists.append(docFrag);
 }
@@ -60,4 +60,5 @@ dropArea.addEventListener("drop", (e) => {
   const dataTransfer = e.dataTransfer;
   const files = dataTransfer.files;
   handlingFiles(files);
+  inactiveState();
 });
