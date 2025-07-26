@@ -1,5 +1,4 @@
 const playList = document.querySelector(".playlist");
-
 const songsList = playList.querySelector(".song-display");
 export let songsPlayLists = [];
 const fileInput = playList.querySelector("input");
@@ -13,19 +12,21 @@ function handlingFiles(files) {
   displaySongs(songsPlayLists);
   songsPlayLists = [];
 }
-const docFrag = document.createDocumentFragment();
 function displaySongs(arr) {
+  const audioFrag = document.createDocumentFragment();
   const audioLists = document.querySelector(".audio");
   arr.forEach((audio) => {
     const audioElement = document.createElement("audio");
     const url = URL.createObjectURL(audio);
     audioElement.src = url;
-    docFrag.append(audioElement);
+    audioElement.id = audio.name;
+    audioFrag.append(audioElement);
     displaySongsTitle(audio.name);
   });
-  audioLists.append(docFrag);
+  audioLists.append(audioFrag);
 }
 function displaySongsTitle(text) {
+  const docFrag = document.createDocumentFragment();
   const li = document.createElement("li");
   li.textContent = text;
   docFrag.append(li);
