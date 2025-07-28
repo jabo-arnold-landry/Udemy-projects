@@ -1,7 +1,9 @@
 const playList = document.querySelector(".playlist");
 const songsList = playList.querySelector(".song-display");
+const controllers = document.querySelector(".controller");
 export let songsPlayLists = [];
 const fileInput = playList.querySelector("input");
+import { prev, play, next } from "./audioPlayer.js";
 fileInput.addEventListener("input", () => {
   handlingFiles(fileInput.files);
 });
@@ -62,4 +64,15 @@ dropArea.addEventListener("drop", (e) => {
   const files = dataTransfer.files;
   handlingFiles(files);
   inactiveState();
+});
+controllers.addEventListener("click", (e) => {
+  if (e.target.id === "prev") {
+    prev();
+  }
+  if (e.target.id === "play") {
+    play();
+  }
+  if (e.target.id === "nxt") {
+    next();
+  }
 });
