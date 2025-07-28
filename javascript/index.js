@@ -3,7 +3,7 @@ const songsList = playList.querySelector(".song-display");
 const controllers = document.querySelector(".controller");
 export let songsPlayLists = [];
 const fileInput = playList.querySelector("input");
-import { prev, play, next } from "./audioPlayer.js";
+import { prev, playing, next } from "./audioPlayer.js";
 fileInput.addEventListener("input", () => {
   handlingFiles(fileInput.files);
 });
@@ -70,7 +70,7 @@ controllers.addEventListener("click", (e) => {
     prev();
   }
   if (e.target.id === "play") {
-    play();
+    playing();
   }
   if (e.target.id === "nxt") {
     next();
