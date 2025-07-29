@@ -16,3 +16,8 @@ input[type="file"] {
 ul li {
   list-style: decimal;
 }
+
+.active-song {
+  background-color: blue;
+  color: white;
+}

@@ -2,8 +2,11 @@ const playList = document.querySelector(".playlist");
 const songsList = playList.querySelector(".song-display");
 const controllers = document.querySelector(".controller");
 export let songsPlayLists = [];
+let index = 0;
 const fileInput = playList.querySelector("input");
-import { prev, playing, next } from "./audioPlayer.js";
+import { playerController, playing, pause } from "./audioPlayer.js";
+const next = playerController("next");
+const prev = playerController("prev");
 fileInput.addEventListener("input", () => {
   handlingFiles(fileInput.files);
 });
@@ -17,20 +20,21 @@ function handlingFiles(files) {
 function displaySongs(arr) {
   const audioFrag = document.createDocumentFragment();
   const audioLists = document.querySelector(".audio");
-  arr.forEach((audio) => {
+  arr.forEach((audio, index) => {
     const audioElement = document.createElement("audio");
     const url = URL.createObjectURL(audio);
     audioElement.src = url;
-    audioElement.id = audio.name;
+    audioElement.setAttribute("data-count", index);
     audioFrag.append(audioElement);
-    displaySongsTitle(audio.name);
+    displaySongsTitle(audio.name, index);
   });
   audioLists.append(audioFrag);
 }
-function displaySongsTitle(text) {
+function displaySongsTitle(text, id) {
   const docFrag = document.createDocumentFragment();
   const li = document.createElement("li");
-  li.textContent = text;
+  li.innerText = text;
+  li.setAttribute("data-label", id);
   docFrag.append(li);
   songsList.append(docFrag);
   const p = playList.querySelector("p");
@@ -66,13 +70,26 @@ dropArea.addEventListener("drop", (e) => {
   inactiveState();
 });
 controllers.addEventListener("click", (e) => {
+  if (index <= 0) {
+  }
   if (e.target.id === "prev") {
-    prev();
+    prev(index--);
   }
-  if (e.target.id === "play") {
-    playing();
-  }
+
   if (e.target.id === "nxt") {
-    next();
+    next(index++);
+  }
+});
+const playPause = document.getElementById("play");
+let counter = 0;
+playPause.addEventListener("click", () => {
+  if (counter === 0) {
+    playPause.innerText = "pause";
+    playing(index);
+    counter += 1;
+  } else {
+    playPause.innerText = "play";
+    pause(index);
+    counter = 0;
   }
 });
