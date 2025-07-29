@@ -1,10 +1,21 @@
 const audios = document.getElementsByTagName("audio");
-function prev() {}
-function playing() {
-  audios[0].play();
+
+function prev(index) {
+  audios[index].pause();
+  audios[index].currentTime = 0;
+  audios[index - 1].play();
 }
-function next() {
-  console.log("next");
+function playing(index = 0) {
+  audios[index].play();
 }
 
-export { prev, playing, next };
+function pause(index) {
+  return audios[index].pause();
+}
+function next(index) {
+  audios[index].pause();
+  audios[index].currentTime = 0;
+  audios[index + 1].play();
+}
+
+export { prev, playing, pause, next };
