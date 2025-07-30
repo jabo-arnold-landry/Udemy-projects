@@ -10,15 +10,15 @@ function playerController(cntrl) {
   };
 }
 function playing(index = 0) {
-  audios[index].play();
   currAudioIndex = index;
+  audios[currAudioIndex].play();
   document.querySelector("#play").innerText = "pause";
   highlightPlayingSong(audios[index].dataset.count);
+  console.log(currAudioIndex);
 }
-
 function pause(index) {
-  audios[index].pause();
   document.querySelector("#play").innerText = "play";
+  audios[index].pause();
 }
 function highlightPlayingSong(la) {
   for (let tag of songTitle) {
@@ -29,14 +29,5 @@ function highlightPlayingSong(la) {
 songContainer.addEventListener("click", (e) => {
   highlightPlayingSong(e.target.dataset.label);
 });
-// songContainer.addEventListener("dblclick", (e) => {
-//   if (e.target.matches("li")) {
-//     if (currAudioIndex !== null && currAudioIndex !== e.target.dataset.label) {
-//       audios[currAudioIndex].pause();
-//       audios[currAudioIndex].currentTime = 0;
-//     }
-//     playing(e.target.dataset.label);
-//     currAudioIndex = e.target.label;
-//   }
-// });
+
 export { playerController, playing, pause };

@@ -74,21 +74,21 @@ controllers.addEventListener("click", (e) => {
   }
   if (e.target.id === "prev") {
     prev(index--);
+    counter = 1;
   }
 
   if (e.target.id === "nxt") {
     next(index++);
+    counter = 1;
   }
 });
 const playPause = document.getElementById("play");
 let counter = 0;
 playPause.addEventListener("click", () => {
   if (counter === 0) {
-    playPause.innerText = "pause";
     playing(index);
     counter += 1;
   } else {
-    playPause.innerText = "play";
     pause(index);
     counter = 0;
   }
