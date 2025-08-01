@@ -1,3 +1,5 @@
+import currentPlayingSong from "./utlisFunction.js";
+
 const audios = document.getElementsByTagName("audio");
 const songTitle = document.getElementsByTagName("li");
 const songContainer = document.querySelector("ul");
@@ -31,9 +33,7 @@ songContainer.addEventListener("click", (e) => {
 
 document.addEventListener("keydown", (e) => {
   e.preventDefault();
-  let element = document.querySelector(".active-song");
-  let index = [...songTitle].indexOf(element);
-  if (element == null) index = 0;
+  let index = currentPlayingSong();
   if (e.key === "ArrowUp") {
     const newIndex = index ? index - 1 : 0;
     highlightPlayingSong(newIndex);
@@ -44,4 +44,4 @@ document.addEventListener("keydown", (e) => {
     highlightPlayingSong(newIndex);
   }
 });
-export { playerController, playing, pause };
+export { playerController, playing, pause, songTitle };
