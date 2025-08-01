@@ -14,13 +14,12 @@ function playing(index = 0) {
   audios[currAudioIndex].play();
   document.querySelector("#play").innerText = "pause";
   highlightPlayingSong(audios[index].dataset.count);
-  console.log(currAudioIndex);
 }
 function pause(index) {
   document.querySelector("#play").innerText = "play";
   audios[index].pause();
 }
-function highlightPlayingSong(la) {
+function highlightPlayingSong(la = 0) {
   for (let tag of songTitle) {
     tag.classList.remove("active-song");
   }
@@ -30,4 +29,19 @@ songContainer.addEventListener("click", (e) => {
   highlightPlayingSong(e.target.dataset.label);
 });
 
+document.addEventListener("keydown", (e) => {
+  e.preventDefault();
+  let element = document.querySelector(".active-song");
+  let index = [...songTitle].indexOf(element);
+  if (element == null) index = 0;
+  if (e.key === "ArrowUp") {
+    const newIndex = index ? index - 1 : 0;
+    highlightPlayingSong(newIndex);
+  }
+  if (e.key === "ArrowDown") {
+    if (index === 0) highlightPlayingSong(index);
+    const newIndex = index < songTitle.length - 1 ? index + 1 : 0;
+    highlightPlayingSong(newIndex);
+  }
+});
 export { playerController, playing, pause };
