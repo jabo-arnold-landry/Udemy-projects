@@ -33,7 +33,7 @@ songContainer.addEventListener("click", (e) => {
 
 document.addEventListener("keydown", (e) => {
   e.preventDefault();
-  let index = currentPlayingSong();
+  let index = currentPlayingSong() < -1 ? 0 : currentPlayingSong();
   if (e.key === "ArrowUp") {
     const newIndex = index ? index - 1 : 0;
     highlightPlayingSong(newIndex);
@@ -44,4 +44,4 @@ document.addEventListener("keydown", (e) => {
     highlightPlayingSong(newIndex);
   }
 });
-export { playerController, playing, pause, songTitle };
+export { playerController, playing, pause };

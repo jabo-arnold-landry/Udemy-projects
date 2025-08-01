@@ -2,9 +2,10 @@ const playList = document.querySelector(".playlist");
 const songsList = playList.querySelector(".song-display");
 const controllers = document.querySelector(".controller");
 export let songsPlayLists = [];
-let index = 0;
 const fileInput = playList.querySelector("input");
 import { playerController, playing, pause } from "./audioPlayer.js";
+import currentPlayingSong from "./utlisFunction.js";
+let index;
 const next = playerController("next");
 const prev = playerController("prev");
 fileInput.addEventListener("input", () => {
@@ -84,7 +85,9 @@ controllers.addEventListener("click", (e) => {
 });
 const playPause = document.getElementById("play");
 let counter = 0;
+
 playPause.addEventListener("click", () => {
+  index = currentPlayingSong() === -1 ? 0 : currentPlayingSong();
   if (counter === 0) {
     playing(index);
     counter += 1;

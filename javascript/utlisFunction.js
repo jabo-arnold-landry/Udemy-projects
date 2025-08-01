@@ -1,7 +1,6 @@
-import { songTitle } from "./audioPlayer.js";
 export default function currentPlayingSong() {
+  const songTitle = document.getElementsByTagName("li");
   let element = document.querySelector(".active-song");
   let index = [...songTitle].indexOf(element);
-  if (element == null) index = 0;
   return index;
 }
