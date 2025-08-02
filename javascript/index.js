@@ -3,12 +3,14 @@ const songsList = playList.querySelector(".song-display");
 const controllers = document.querySelector(".controller");
 export let songsPlayLists = [];
 const fileInput = playList.querySelector("input");
-import { playerController, playing, pause } from "./audioPlayer.js";
-import currentPlayingSong from "./utlisFunction.js";
+/* this section is for imports */
+import { playerController, playing, pause } from "./audioPlayer.js"; // getting song playing functionality
+import currentPlayingSong from "./utlisFunction.js"; //function which stores the current playing song to help determine which song to play
 let index;
 const next = playerController("next");
 const prev = playerController("prev");
 fileInput.addEventListener("input", () => {
+  // getting  file inputed by the user
   handlingFiles(fileInput.files);
 });
 function handlingFiles(files) {
@@ -18,13 +20,14 @@ function handlingFiles(files) {
   displaySongs(new Set(songsPlayLists));
   // songsPlayLists = [];
 }
+/* this section is for creating audio element and populating song title to the DOM */
 function displaySongs(arr) {
   arr = [...arr];
   const audioFrag = document.createDocumentFragment();
   const audioLists = document.querySelector(".audio");
   arr.forEach((audio, index) => {
     const audioElement = document.createElement("audio");
-    const url = URL.createObjectURL(audio);
+    const url = URL.createObjectURL(audio); // this lne will help create a fake url for a song to be played, we will use it as a src for audio
     audioElement.src = url;
     audioElement.setAttribute("data-count", index);
     audioFrag.append(audioElement);
@@ -42,7 +45,8 @@ function displaySongsTitle(text, id) {
   const p = playList.querySelector("p");
   p.textContent = "";
 }
-export const dropArea = document.querySelector(".drag-zone");
+/* drag and drop section*/
+const dropArea = document.querySelector(".drag-zone");
 const activeState = toggleActiveOrInactive(true);
 const inactiveState = toggleActiveOrInactive(false);
 const dropEvents = ["dragenter", "dragover", "dragleave", "drop"];
@@ -71,6 +75,7 @@ dropArea.addEventListener("drop", (e) => {
   handlingFiles(files);
   inactiveState();
 });
+/* audio playing section controllers */
 controllers.addEventListener("click", (e) => {
   if (index <= 0) {
   }
