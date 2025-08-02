@@ -93,6 +93,7 @@ const playPause = document.getElementById("play");
 let counter = 0;
 
 playPause.addEventListener("click", () => {
+  // here we are checking if there is a highlighted song before the play button if not we assign the index to zero else to the index of the active or the highlited song
   index = currentPlayingSong() === -1 ? 0 : currentPlayingSong();
   if (counter === 0) {
     playing(index);
