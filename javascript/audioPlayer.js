@@ -3,7 +3,8 @@ import currentPlayingSong from "./utlisFunction.js";
 const audios = document.getElementsByTagName("audio");
 const songTitle = document.getElementsByTagName("li");
 const songContainer = document.querySelector("ul");
-let currAudioIndex = null;
+const optionsList = document.querySelector(".options-list");
+let currAudioIndex;
 function playerController(cntrl) {
   return function (index) {
     audios[index].pause();
@@ -29,8 +30,19 @@ function highlightPlayingSong(la = 0) {
 }
 songContainer.addEventListener("click", (e) => {
   highlightPlayingSong(e.target.dataset.label);
+  if (e.target.matches("li")) {
+    optionsList.classList.remove("hidden");
+  }
 });
-
+// songContainer.addEventListener("mouseover", (e) => {
+//   //highlightPlayingSong(e.target.dataset.label);
+//   if (e.target.matches("li")) {
+//     optionsList.classList.remove("hidden");
+//   }
+// });
+// songContainer.addEventListener("mouseleave", (e) => {
+//   optionsList.classList.add("hidden");
+// });
 document.addEventListener("keydown", (e) => {
   e.preventDefault();
   let index = currentPlayingSong() < -1 ? 0 : currentPlayingSong();

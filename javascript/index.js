@@ -15,10 +15,11 @@ function handlingFiles(files) {
   for (let file of files) {
     songsPlayLists.push(file);
   }
-  displaySongs(songsPlayLists);
-  songsPlayLists = [];
+  displaySongs(new Set(songsPlayLists));
+  // songsPlayLists = [];
 }
 function displaySongs(arr) {
+  arr = [...arr];
   const audioFrag = document.createDocumentFragment();
   const audioLists = document.querySelector(".audio");
   arr.forEach((audio, index) => {
