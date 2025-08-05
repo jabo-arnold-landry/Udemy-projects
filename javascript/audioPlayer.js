@@ -37,15 +37,6 @@ songContainer.addEventListener("click", (e) => {
     optionsList.classList.remove("hidden");
   }
 });
-// songContainer.addEventListener("mouseover", (e) => {
-//   //highlightPlayingSong(e.target.dataset.label);
-//   if (e.target.matches("li")) {
-//     optionsList.classList.remove("hidden");
-//   }
-// });
-// songContainer.addEventListener("mouseleave", (e) => {
-//   optionsList.classList.add("hidden");
-// });
 
 /* arrow up and down functionality */
 document.addEventListener("keydown", (e) => {
