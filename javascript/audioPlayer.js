@@ -53,4 +53,15 @@ document.addEventListener("keydown", (e) => {
     highlightPlayingSong(newIndex);
   }
 });
+specialPlay.addEventListener("click", (e) => {
+  const isPlaying = currAudioIndex === currentPlayingSong();
+  if (isPlaying) {
+    specialPlay.textContent = "play";
+    pause(currAudioIndex);
+  }
+  specialPlay.textContent = "pause";
+  pause(currAudioIndex);
+  audios[currAudioIndex].currentTime = 0;
+  playing(currentPlayingSong());
+});
 export { playerController, playing, pause };
