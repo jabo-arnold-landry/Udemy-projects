@@ -19,6 +19,7 @@ function playing(index = 0) {
   audios[currAudioIndex].play();
   document.querySelector("#play").innerText = "pause";
   highlightPlayingSong(audios[index].dataset.count);
+  specialPlay.disabled = false;
 }
 function pause(index) {
   document.querySelector("#play").innerText = "play";
@@ -53,15 +54,24 @@ document.addEventListener("keydown", (e) => {
     highlightPlayingSong(newIndex);
   }
 });
+const specialPlay = document.getElementById("special-play");
+if (!currAudioIndex) specialPlay.disabled = true;
 specialPlay.addEventListener("click", (e) => {
   const isPlaying = currAudioIndex === currentPlayingSong();
-  if (isPlaying) {
-    specialPlay.textContent = "play";
+  if (isPlaying && !audios[currAudioIndex].paused) {
     pause(currAudioIndex);
+    specialPlay.textContent = "play";
+    return;
+  } else if (isPlaying && audios[currAudioIndex].paused) {
+    playing(currAudioIndex);
+    specialPlay.textContent = "pause";
+    return;
   }
-  specialPlay.textContent = "pause";
-  pause(currAudioIndex);
-  audios[currAudioIndex].currentTime = 0;
-  playing(currentPlayingSong());
+  if (!isPlaying) {
+    audios[currAudioIndex].pause();
+    audios[currAudioIndex].currentTime = 0;
+    playing(currentPlayingSong());
+    return;
+  }
 });
 export { playerController, playing, pause };
