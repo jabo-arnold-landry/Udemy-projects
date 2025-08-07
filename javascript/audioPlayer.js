@@ -14,7 +14,7 @@ function playerController(cntrl) {
     cntrl === "prev" ? playing(index - 1) : playing(index + 1);
   };
 }
-function playing(index = 0) {
+function playing(index) {
   currAudioIndex = index;
   audios[currAudioIndex].play();
   document.querySelector("#play").innerText = "pause";
@@ -31,6 +31,8 @@ function highlightPlayingSong(la = 0) {
     tag.classList.remove("active-song");
   }
   songTitle[la].classList.toggle("active-song");
+  const isTue = currAudioIndex === currentPlayingSong();
+  if (!isTue) document.getElementById("play").textContent = "play";
 }
 songContainer.addEventListener("click", (e) => {
   highlightPlayingSong(e.target.dataset.label);
@@ -55,16 +57,20 @@ document.addEventListener("keydown", (e) => {
   }
 });
 const specialPlay = document.getElementById("special-play");
-if (!currAudioIndex) specialPlay.disabled = true;
-specialPlay.addEventListener("click", (e) => {
+
+function played(index) {
+  if (currAudioIndex === undefined) {
+    playing(index);
+    return currAudioIndex;
+  }
   const isPlaying = currAudioIndex === currentPlayingSong();
   if (isPlaying && !audios[currAudioIndex].paused) {
     pause(currAudioIndex);
-    specialPlay.textContent = "play";
+    document.getElementById("play").textContent = "play";
     return;
   } else if (isPlaying && audios[currAudioIndex].paused) {
     playing(currAudioIndex);
-    specialPlay.textContent = "pause";
+    document.getElementById("play").textContent = "pause";
     return;
   }
   if (!isPlaying) {
@@ -73,5 +79,5 @@ specialPlay.addEventListener("click", (e) => {
     playing(currentPlayingSong());
     return;
   }
-});
-export { playerController, playing, pause };
+}
+export { playerController, played, pause };
