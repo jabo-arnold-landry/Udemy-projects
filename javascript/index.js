@@ -81,16 +81,13 @@ controllers.addEventListener("click", (e) => {
   }
   if (e.target.id === "prev") {
     prev(index--);
-    counter = 1;
   }
 
   if (e.target.id === "nxt") {
     next(index++);
-    counter = 1;
   }
 });
 const playPause = document.getElementById("play");
-let counter = 0;
 
 playPause.addEventListener("click", () => {
   // here we are checking if there is a highlighted song before the play button if not we assign the index to zero else to the index of the active or the highlited song
