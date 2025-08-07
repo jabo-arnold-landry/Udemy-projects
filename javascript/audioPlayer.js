@@ -31,7 +31,13 @@ function highlightPlayingSong(la = 0) {
   }
   songTitle[la].classList.toggle("active-song");
   const isTue = currAudioIndex === currentPlayingSong();
-  if (!isTue) document.getElementById("play").textContent = "play";
+  if (!isTue) {
+    document.getElementById("play").textContent = "play";
+    return;
+  } else {
+    document.getElementById("play").textContent = "pause";
+    return;
+  }
 }
 songContainer.addEventListener("click", (e) => {
   highlightPlayingSong(e.target.dataset.label);
