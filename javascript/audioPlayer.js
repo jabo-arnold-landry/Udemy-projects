@@ -19,7 +19,6 @@ function playing(index) {
   audios[currAudioIndex].play();
   document.querySelector("#play").innerText = "pause";
   highlightPlayingSong(audios[index].dataset.count);
-  specialPlay.disabled = false;
 }
 function pause(index) {
   document.querySelector("#play").innerText = "play";
