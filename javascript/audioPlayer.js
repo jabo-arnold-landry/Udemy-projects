@@ -22,8 +22,12 @@ function playing(index) {
     progressBar.max = audios[currAudioIndex].duration;
     setInterval(
       () => (progressBar.value = audios[currAudioIndex].currentTime),
-      500
+      1000
     );
+    audios[currAudioIndex].addEventListener("ended", (e) => {
+      console.log("the media has ended");
+      playerController("next")(currAudioIndex);
+    });
     progressBar.classList.remove("hidden");
   });
   highlightPlayingSong(audios[index].dataset.count);
