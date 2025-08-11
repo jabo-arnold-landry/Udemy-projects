@@ -4,6 +4,7 @@ const audios = document.getElementsByTagName("audio");
 const songTitle = document.getElementsByTagName("li");
 const songContainer = document.querySelector("ul");
 const optionsList = document.querySelector(".options-list");
+const progressBar = document.getElementById("progress");
 let currAudioIndex; // this will track current playing song
 
 /* player controllers section and logic */
@@ -17,7 +18,14 @@ function playerController(cntrl) {
 function playing(index) {
   currAudioIndex = index;
   audios[currAudioIndex].play();
-  document.querySelector("#play").innerText = "pause";
+  audios[currAudioIndex].addEventListener("play", (e) => {
+    progressBar.max = audios[currAudioIndex].duration;
+    setInterval(
+      () => (progressBar.value = audios[currAudioIndex].currentTime),
+      500
+    );
+    progressBar.classList.remove("hidden");
+  });
   highlightPlayingSong(audios[index].dataset.count);
 }
 function pause(index) {
@@ -61,7 +69,6 @@ document.addEventListener("keydown", (e) => {
     highlightPlayingSong(newIndex);
   }
 });
-const specialPlay = document.getElementById("special-play");
 
 function played(index) {
   if (currAudioIndex === undefined) {
@@ -85,4 +92,5 @@ function played(index) {
     return;
   }
 }
+
 export { playerController, played, pause };

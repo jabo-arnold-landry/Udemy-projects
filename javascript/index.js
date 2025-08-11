@@ -30,6 +30,7 @@ function displaySongs(arr) {
     const url = URL.createObjectURL(audio); // this lne will help create a fake url for a song to be played, we will use it as a src for audio
     audioElement.src = url;
     audioElement.setAttribute("data-count", index);
+
     audioFrag.append(audioElement);
     displaySongsTitle(audio.name, index);
   });
