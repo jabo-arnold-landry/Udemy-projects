@@ -44,10 +44,10 @@ function highlightPlayingSong(la = 0) {
   songTitle[la].classList.toggle("active-song");
   const isTue = currAudioIndex === currentPlayingSong();
   if (!isTue) {
-    document.getElementById("play").textContent = "play";
+    document.getElementById("play").textContent = "▶";
     return;
   } else {
-    document.getElementById("play").textContent = "pause";
+    document.getElementById("play").textContent = "⏸";
     return;
   }
 }
@@ -82,11 +82,11 @@ function played(index) {
   const isPlaying = currAudioIndex === currentPlayingSong();
   if (isPlaying && !audios[currAudioIndex].paused) {
     pause(currAudioIndex);
-    document.getElementById("play").textContent = "play";
+    document.getElementById("play").textContent = "▶";
     return;
   } else if (isPlaying && audios[currAudioIndex].paused) {
     playing(currAudioIndex);
-    document.getElementById("play").textContent = "pause";
+    document.getElementById("play").textContent = "⏸";
     return;
   }
   if (!isPlaying) {
@@ -96,5 +96,11 @@ function played(index) {
     return;
   }
 }
+let mouseDown = false;
 
+progressBar.addEventListener("change", (e) => {
+  const passtime = progressBar.value / 100;
+  audios[currAudioIndex].currentTime =
+    (audios[currAudioIndex].duration || 0) * passtime;
+});
 export { playerController, played, pause };
