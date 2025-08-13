@@ -9,14 +9,23 @@
   </head>
   <body>
     <section class="player">
-      <img src="" alt="mp3 image icon" />
-      <input type="range" id="progress" class="hidden" min= "0" max="100" step="2.5" />
       <div class="audio"></div>
       <div class="controller">
-        <button class="contorll" id="prev">⏮</button>
-        <button class="contorll" id="play">▶</button>
-        <button class="contorll" id="nxt">⏭</button>
-        <button class="" id="toggle" title="toggle playlist">playlist</button>
+        <img src="" alt="mp3 image icon" />
+        <input
+          type="range"
+          id="progress"
+          class="hidden"
+          min="0"
+          max="100"
+          step="2.5"
+        />
+        <div>
+          <button class="contorll" id="prev">⏮</button>
+          <button class="contorll" id="play">▶</button>
+          <button class="contorll" id="nxt">⏭</button>
+          <button class="" id="toggle" title="toggle playlist">playlist</button>
+        </div>
       </div>
       <div class="playlist drag-zone" draggable="true">
         <div class="options-list hidden">
