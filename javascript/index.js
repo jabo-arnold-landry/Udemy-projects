@@ -6,7 +6,7 @@ const fileInput = playList.querySelector("input");
 /* this section is for imports */
 import { playerController, played, pause } from "./audioPlayer.js"; // getting song playing functionality
 import currentPlayingSong from "./utlisFunction.js"; //function which stores the current playing song to help determine which song to play
-let index = 0;
+let index;
 const next = playerController("next");
 const prev = playerController("prev");
 fileInput.addEventListener("input", () => {
@@ -89,9 +89,23 @@ controllers.addEventListener("click", (e) => {
   }
 });
 const playPause = document.getElementById("play");
-
+function letsPlay() {
+  index = currentPlayingSong() === -1 ? 0 : currentPlayingSong();
+  played(index);
+  return index;
+}
 playPause.addEventListener("click", () => {
   // here we are checking if there is a highlighted song before the play button if not we assign the index to zero else to the index of the active or the highlited song
-  index = index = currentPlayingSong() === -1 ? 0 : currentPlayingSong();
-  played(index);
+  letsPlay();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === " ") {
+    letsPlay();
+  }
+  if (e.key === "n") {
+    next(index++);
+  }
+  if (e.key === "p") {
+    prev(index--);
+  }
 });
