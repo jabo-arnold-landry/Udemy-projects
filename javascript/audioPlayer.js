@@ -6,7 +6,7 @@ const songContainer = document.querySelector("ul");
 const optionsList = document.querySelector(".options-list");
 const progressBar = document.getElementById("progress");
 let currAudioIndex; // this will track current playing song
-
+let mouseDown = false;
 /* player controllers section and logic */
 function playerController(cntrl) {
   return function (index) {
@@ -18,18 +18,23 @@ function playerController(cntrl) {
 function playing(index) {
   currAudioIndex = index;
   audios[currAudioIndex].play();
+  progressBar.max = 100;
   audios[currAudioIndex].addEventListener("play", (e) => {
-    progressBar.max = audios[currAudioIndex].duration;
-    setInterval(
-      () => (progressBar.value = audios[currAudioIndex].currentTime),
-      1000
-    );
-    audios[currAudioIndex].addEventListener("ended", (e) => {
-      console.log("the media has ended");
-      playerController("next")(currAudioIndex);
-    });
-    progressBar.classList.remove("hidden");
+    setInterval(() => {
+      if (!mouseDown) {
+        progressBar.value =
+          (audios[currAudioIndex].currentTime /
+            audios[currAudioIndex].duration) *
+          100;
+      }
+    }, 1000);
   });
+  audios[currAudioIndex].addEventListener("ended", (e) => {
+    console.log("the media has ended");
+    playerController("next")(currAudioIndex);
+  });
+  progressBar.disabled = false;
+
   highlightPlayingSong(audios[index].dataset.count);
 }
 function pause(index) {
@@ -96,11 +101,18 @@ function played(index) {
     return;
   }
 }
-let mouseDown = false;
 
-progressBar.addEventListener("change", (e) => {
-  const passtime = progressBar.value / 100;
+progressBar.addEventListener("input", (e) => {
+  const newCurrTime = progressBar.value / 100;
   audios[currAudioIndex].currentTime =
-    (audios[currAudioIndex].duration || 0) * passtime;
+    audios[currAudioIndex].duration * newCurrTime;
+});
+
+progressBar.addEventListener("mousedown", () => {
+  mouseDown = true;
+});
+
+progressBar.addEventListener("mouseup", () => {
+  mouseDown = false;
 });
 export { playerController, played, pause };
