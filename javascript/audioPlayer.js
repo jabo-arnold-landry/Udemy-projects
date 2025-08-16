@@ -34,7 +34,7 @@ function playing(index) {
     playerController("next")(currAudioIndex);
   });
   progressBar.disabled = false;
-
+  document.title = songTitle[currAudioIndex].textContent;
   highlightPlayingSong(audios[index].dataset.count);
 }
 function pause(index) {
