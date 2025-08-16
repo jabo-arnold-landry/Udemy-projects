@@ -5,6 +5,7 @@
   --bg-color: hsl(36, 25%, 12%);
   --base-color: white;
   --text-hover: rgba(231, 217, 217, 0.774);
+  --bg-hover: green;
   --font-fam: "Edu NSW ACT Cursive", cursive;
 }
 
@@ -26,26 +27,26 @@ body {
 .drag-inactive {
   border: none;
 }
-section {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 2rem;
-}
-.controller {
-  display: flex;
-  flex-direction: column;
-}
+
 input[type="file"] {
   opacity: 0;
+}
+input[type="range"] {
+  accent-color: var(--bg-hover);
+  width: 100%;
 }
 .playlist {
   border: 2px dotted gainsboro;
   border-radius: 5px;
   max-width: fit-content;
 }
+section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
 ul {
-  background-color: var(--bg-color);
   overflow: auto;
 
   & li {
@@ -56,6 +57,10 @@ ul {
     list-style: none;
     font-family: var(--font-fam);
   }
+}
+ul:has(li) {
+  border: 1px solid var(--bg-hover);
+  padding: 2rem;
 }
 li:hover {
   background-color: var(--clr-primary);
@@ -72,4 +77,21 @@ li:hover {
 }
 .hidden {
   display: none;
+}
+button {
+  padding: 0.4rem 0.5rem;
+  cursor: pointer;
+  border: none;
+  color: white;
+  background-color: var(--clr-primary);
+  border-radius: 50px;
+  transition: all 0.3ms 0.1ms ease;
+}
+
+button:nth-child(2) {
+  background-color: var(--bg-hover);
+}
+button:is(:hover, :focus-visible, :focus) {
+  opacity: 0.8;
+  background-color: var(--bg-hover);
 }
