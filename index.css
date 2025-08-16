@@ -1,3 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive:wght@400..700&display=swap");
+
+:root {
+  --clr-primary: oklch(60.961% 0.17037 23.615);
+  --bg-color: hsl(36, 25%, 12%);
+  --base-color: white;
+  --text-hover: rgba(231, 217, 217, 0.774);
+  --font-fam: "Edu NSW ACT Cursive", cursive;
+}
+
 .drag-active {
   background-color: gainsboro;
 }
@@ -10,16 +20,33 @@ input[type="file"] {
 .playlist {
   border: 2px dotted gainsboro;
   border-radius: 5px;
-  width: fit-content;
-  padding: 0.4rem 1rem;
+  max-width: fit-content;
 }
-ul li {
-  list-style: decimal;
-}
+ul {
+  background-color: var(--bg-color);
+  overflow: auto;
 
+  & li {
+    list-style: decimal-leading-zero;
+    padding: 0.4rem 0.2rem;
+    color: var(--base-color);
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-fam);
+  }
+}
+li:hover {
+  background-color: var(--clr-primary);
+  color: var(--text-hover);
+}
+.playlist:has(li) {
+  border: none;
+}
 .active-song {
-  background-color: blue;
-  color: white;
+  background-color: var(--clr-primary);
+  color: var(--text-hover);
+  font-weight: bold;
+  font-family: sans-serif;
 }
 .hidden {
   display: none;
