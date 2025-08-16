@@ -4,8 +4,9 @@ const audios = document.getElementsByTagName("audio");
 const songTitle = document.getElementsByTagName("li");
 const songContainer = document.querySelector("ul");
 const optionsList = document.querySelector(".options-list");
+const progressBar = document.getElementById("progress");
 let currAudioIndex;
-
+let mouseDown = false;
 /* player controllers section and logic */
 function playerController(cntrl) {
   return function (index) {
@@ -17,7 +18,23 @@ function playerController(cntrl) {
 function playing(index) {
   currAudioIndex = index;
   audios[currAudioIndex].play();
-  document.querySelector("#play").innerText = "pause";
+  progressBar.max = 100;
+  audios[currAudioIndex].addEventListener("play", (e) => {
+    setInterval(() => {
+      if (!mouseDown) {
+        progressBar.value =
+          (audios[currAudioIndex].currentTime /
+            audios[currAudioIndex].duration) *
+          100;
+      }
+    }, 1000);
+  });
+  audios[currAudioIndex].addEventListener("ended", (e) => {
+    console.log("the media has ended");
+    playerController("next")(currAudioIndex);
+  });
+  progressBar.disabled = false;
+  document.title = songTitle[currAudioIndex].textContent;
   highlightPlayingSong(audios[index].dataset.count);
 }
 function pause(index) {
@@ -32,10 +49,10 @@ function highlightPlayingSong(la = 0) {
   songTitle[la].classList.toggle("active-song");
   const isTue = currAudioIndex === currentPlayingSong();
   if (!isTue) {
-    document.getElementById("play").textContent = "play";
+    document.getElementById("play").textContent = "▶";
     return;
   } else {
-    document.getElementById("play").textContent = "pause";
+    document.getElementById("play").textContent = "⏸";
     return;
   }
 }
@@ -61,7 +78,6 @@ document.addEventListener("keydown", (e) => {
     highlightPlayingSong(newIndex);
   }
 });
-const specialPlay = document.getElementById("special-play");
 
 function played(index) {
   if (currAudioIndex === undefined) {
@@ -71,11 +87,11 @@ function played(index) {
   const isPlaying = currAudioIndex === currentPlayingSong();
   if (isPlaying && !audios[currAudioIndex].paused) {
     pause(currAudioIndex);
-    document.getElementById("play").textContent = "play";
+    document.getElementById("play").textContent = "▶";
     return;
   } else if (isPlaying && audios[currAudioIndex].paused) {
     playing(currAudioIndex);
-    document.getElementById("play").textContent = "pause";
+    document.getElementById("play").textContent = "⏸";
     return;
   }
   if (!isPlaying) {
@@ -85,4 +101,18 @@ function played(index) {
     return;
   }
 }
+
+progressBar.addEventListener("input", (e) => {
+  const newCurrTime = progressBar.value / 100;
+  audios[currAudioIndex].currentTime =
+    audios[currAudioIndex].duration * newCurrTime;
+});
+
+progressBar.addEventListener("mousedown", () => {
+  mouseDown = true;
+});
+
+progressBar.addEventListener("mouseup", () => {
+  mouseDown = false;
+});
 export { playerController, played, pause };
