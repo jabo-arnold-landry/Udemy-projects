@@ -88,7 +88,11 @@ controllers.addEventListener("click", (e) => {
   }
 });
 const playPause = document.getElementById("play");
-
+function letsPlay() {
+  index = currentPlayingSong() === -1 ? 0 : currentPlayingSong();
+  played(index);
+  return index;
+}
 playPause.addEventListener("click", () => {
   index = index = currentPlayingSong() === -1 ? 0 : currentPlayingSong();
   played(index);
