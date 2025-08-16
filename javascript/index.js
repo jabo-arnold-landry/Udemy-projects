@@ -89,12 +89,24 @@ controllers.addEventListener("click", (e) => {
   }
 });
 const playPause = document.getElementById("play");
+
 function letsPlay() {
   index = currentPlayingSong() === -1 ? 0 : currentPlayingSong();
   played(index);
   return index;
 }
 playPause.addEventListener("click", () => {
-  index = index = currentPlayingSong() === -1 ? 0 : currentPlayingSong();
-  played(index);
+  // here we are checking if there is a highlighted song before the play button if not we assign the index to zero else to the index of the active or the highlited song
+  letsPlay();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === " ") {
+    letsPlay();
+  }
+  if (e.key === "n") {
+    next(index++);
+  }
+  if (e.key === "p") {
+    prev(index--);
+  }
 });
