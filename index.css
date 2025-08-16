@@ -48,7 +48,7 @@ section {
 }
 ul {
   overflow: auto;
-
+  background-color: var(--bg-color);
   & li {
     list-style: decimal-leading-zero;
     padding: 0.4rem 0.2rem;
@@ -59,8 +59,9 @@ ul {
   }
 }
 ul:has(li) {
-  border: 1px solid var(--bg-hover);
-  padding: 2rem;
+  border-radius: 0.6rem;
+  box-shadow: 3px 2px 10px var(--bg-hover), 4px -1px 10px var(--bg-hover);
+  padding: 1rem;
 }
 li:hover {
   background-color: var(--clr-primary);
