@@ -40,6 +40,7 @@ function displaySongsTitle(text, id) {
   const docFrag = document.createDocumentFragment();
   const li = document.createElement("li");
   li.innerText = text;
+  li.title = text;
   li.setAttribute("data-label", id);
   docFrag.append(li);
   songsList.append(docFrag);
