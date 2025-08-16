@@ -4,7 +4,7 @@ const audios = document.getElementsByTagName("audio");
 const songTitle = document.getElementsByTagName("li");
 const songContainer = document.querySelector("ul");
 const optionsList = document.querySelector(".options-list");
-let currAudioIndex; // this will track current playing song
+let currAudioIndex;
 
 /* player controllers section and logic */
 function playerController(cntrl) {
@@ -49,7 +49,7 @@ songContainer.addEventListener("click", (e) => {
 /* arrow up and down functionality */
 document.addEventListener("keydown", (e) => {
   e.preventDefault();
-  // here we are checking if there is a highlighted song before the play button if not we assign the index to zero else to the index of the active or the highlited song
+
   let index = currentPlayingSong() < -1 ? 0 : currentPlayingSong();
   if (e.key === "ArrowUp") {
     const newIndex = index ? index - 1 : 0;

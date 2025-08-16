@@ -3,9 +3,9 @@ const songsList = playList.querySelector(".song-display");
 const controllers = document.querySelector(".controller");
 export let songsPlayLists = [];
 const fileInput = playList.querySelector("input");
-/* this section is for imports */
-import { playerController, played, pause } from "./audioPlayer.js"; // getting song playing functionality
-import currentPlayingSong from "./utlisFunction.js"; //function which stores the current playing song to help determine which song to play
+
+import { playerController, played, pause } from "./audioPlayer.js";
+import currentPlayingSong from "./utlisFunction.js";
 let index = 0;
 const next = playerController("next");
 const prev = playerController("prev");
@@ -17,12 +17,11 @@ function handlingFiles(files) {
   for (let file of files) {
     songsPlayLists.push(file);
   }
-  displaySongs(new Set(songsPlayLists));
-  // songsPlayLists = [];
+  displaySongs(songsPlayLists);
+  songsPlayLists = [];
 }
 /* this section is for creating audio element and populating song title to the DOM */
 function displaySongs(arr) {
-  arr = [...arr];
   const audioFrag = document.createDocumentFragment();
   const audioLists = document.querySelector(".audio");
   arr.forEach((audio, index) => {
@@ -90,7 +89,6 @@ controllers.addEventListener("click", (e) => {
 const playPause = document.getElementById("play");
 
 playPause.addEventListener("click", () => {
-  // here we are checking if there is a highlighted song before the play button if not we assign the index to zero else to the index of the active or the highlited song
   index = index = currentPlayingSong() === -1 ? 0 : currentPlayingSong();
   played(index);
 });
