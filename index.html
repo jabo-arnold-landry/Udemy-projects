@@ -9,16 +9,35 @@
   </head>
   <body>
     <section class="player">
-      <img src="" alt="mp3 image icon" />
-      <input type="range" id="progress" disabled min="0" max="0" step="2.5" />
       <div class="audio"></div>
       <div class="controller">
-        <button class="contorll" id="prev">⏮</button>
-        <button class="contorll" id="play">▶</button>
-        <button class="contorll" id="nxt">⏭</button>
-        <button class="" id="toggle" title="toggle playlist">playlist</button>
+        <img src="" alt="mp3 image icon" /> <br />
+        <div class="info">
+          <input
+            type="range"
+            id="progress"
+            min="0"
+            max="0"
+            step="2.5"
+            disabled
+            title="progress bar"
+          />
+        </div>
+        <div>
+          <button class="contorll" id="prev" title="previous">⏮</button>
+          <button class="contorll" id="play" title="play">▶</button>
+          <button
+            class="contorll"
+            id="nxt"
+            title="next
+          "
+          >
+            ⏭
+          </button>
+          <button class="" id="toggle" title="toggle playlist">playlist</button>
+        </div>
       </div>
-      <div class="playlist drag-zone" draggable="true">
+      <div class="playlist drag-zone" draggable="true" title="song-section">
         <div class="options-list hidden">
           <span>remove</span>
           <span>sort</span>
@@ -27,7 +46,9 @@
         <ul class="song-display"></ul>
 
         <div class="input-file">
-          <label for="songs">choose from local directory</label><br />
+          <label for="songs" title="select a song"
+            >choose from local directory</label
+          ><br />
           <input type="file" title="" id="songs" multiple accept="audio/*" />
         </div>
         <!-- <p ></p>drag and drop media here!</p> -->
